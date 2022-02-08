@@ -67,7 +67,7 @@ $cats = $cat->getCategories();
                         <div class="col-lg-12">
                             <h1 class="page-header"><?= $title ?></h1>
                         </div>                        
-     				 <div class='col-sm-12' id="message"></div>		
+                     <div class='col-sm-12' id="message"></div>     
                         <!-- /.col-lg-12 -->
                         <div class="row">
                             <div class="col-lg-12">
@@ -90,6 +90,7 @@ $cats = $cat->getCategories();
                                                         <th>#</th>
                                                         <th>Catégories</th>
                                                         <th>Date de Création</th>
+                                                        <th>Activ/Desact</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -99,11 +100,16 @@ $cats = $cat->getCategories();
                                                         <td><?=$cnt?></td>
                                                         <td><b><?=$cat->CATEGORIE?></b></td>
                                                         <td><?=$cat->CREATEDAT?></td>
+                                                        <?php 
+                                                        if($cat->STATUT == 0){
+                                                        echo "<td><button type='button'  id='".$cat->ID."' name='activer' class='btn btn-xs btn-default activer' ><span class='glyphicon glyphicon-ok' ></span> Activer?</button></td>";
+                                                        } else {
+                                                            echo "<td>  <button type='button'  id='".$cat->ID."' name='desactiver' class='btn btn-xs btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
+                                                            </td>";}
+                                                            ?>
                                                         <td class="center">
                                                             <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
-                                                            <button type='button' name='delete' id='".$value->ID."' class='btn btn-xs btn-danger delete' title='Supprimer Admin'><span class='glyphicon glyphicon-trash'></span></button>
-
-                                                        </td>
+                                                         </td>
                                                     </tr>
                                                     <?php $cnt++; endforeach ?>
                                                 </tbody>

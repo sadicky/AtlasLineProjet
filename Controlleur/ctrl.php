@@ -1,8 +1,8 @@
 <?php 
 	function login(){
 	session_destroy();
-	require_once('Model/Admin/login.class.php');
-	$log = new Login();
+	// require_once('Model/Admin/login.class.php');
+	// $log = new Login();
 	include('Vues/login.php');
 }
 	function home(){
