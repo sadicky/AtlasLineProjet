@@ -111,17 +111,17 @@ Class Articles
         return $ok;
     }
 
-     public function activProf($idprof){
+     public function activProf($idcat){
          $db = getConnection();
          $sql =$db->prepare( "UPDATE prof SET ACCESS='1' where ID=?");
-         $ok = $sql->execute(array($idprof));
+         $ok = $sql->execute(array($idcat));
         return $ok;
      }
      
-    public function deactivProf($idprof){
+    public function deactivProf($idcat){
         $db = getConnection();
         $sql =$db->prepare( "UPDATE prof SET ACCESS='0' where ID=?");
-        $ok = $sql->execute(array($idprof));
+        $ok = $sql->execute(array($idcat));
         return $ok;
     }
 }
