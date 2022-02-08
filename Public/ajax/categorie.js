@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    getCategories();
       $("#formulaire").submit(function (event) {
         event.preventDefault();
           var cat = $("#cat").val();
@@ -17,9 +16,6 @@ $(document).ready(function () {
                   $('#message').html(donnees).slideDown();
                   $("#formulaire")[0].reset();
                   $("#ajoutcat").modal("hide");
-                  setInterval(function () {
-                    DataTable.fnReloadAjax();
-              }, 1000);
                   
               }
           });
