@@ -87,7 +87,7 @@ $cats = $cat->getCategories();
                                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th><center>#</center></th>
                                                         <th>Catégories</th>
                                                         <th>Date de Création</th>
                                                         <th>Activ/Desact</th>
