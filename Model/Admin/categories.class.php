@@ -61,14 +61,14 @@ Class Categories
         return $ok;
     }
 
-     public function activProf($idprof){
+     public function activProf($idprofs){
          $db = getConnection();
          $sql =$db->prepare( "UPDATE prof SET ACCESS='1' where ID=?");
          $ok = $sql->execute(array($idprof));
         return $ok;
      }
      
-    public function deactivProf($idprof){
+    public function deactivProf($idprofs){
         $db = getConnection();
         $sql =$db->prepare( "UPDATE prof SET ACCESS='0' where ID=?");
         $ok = $sql->execute(array($idprof));
