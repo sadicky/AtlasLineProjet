@@ -1,5 +1,6 @@
 <?php $title = 'Utilisateur';
-$users = $user->getUsers(); ?>
+$users=$user->getUsers();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,8 @@ $users = $user->getUsers(); ?>
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?= $title ?></title>
+    <title><?= $title ?></title> 
+    <!--  -->
 
     <!-- Bootstrap Core CSS -->
     <link href="plugins/css/bootstrap.min.css" rel="stylesheet">
@@ -85,13 +87,13 @@ $users = $user->getUsers(); ?>
                                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>Username</th>
-                                                        <th>Type</th>
-                                                        <th>Email</th>
-                                                        <th>Statut</th>
-                                                        <th>Activer/Desactiver</th>
-                                                        <th>Actions</th>
+                                                        <th><center>#</center></th>
+                                                        <th><center>Username</center></th>
+                                                        <th><center>Type</center></th>
+                                                        <th><center>Email</center></th>
+                                                        <th><center>Statut</center></th>
+                                                        <th><center>Activer/Desactiver</center></th>
+                                                        <th><center>Actions</center></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -108,14 +110,19 @@ $users = $user->getUsers(); ?>
                                                             echo "<td>	<button type='button'  id='".$user->ID."' name='desactiver' class='btn btn-xs btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
                                                             </td>";}?>
                                                         <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
-                                                            <button type='button' name='delete' id='".$value->ID."' class='btn btn-xs btn-danger delete' title='Supprimer Admin'><span class='glyphicon glyphicon-trash'></span></button>
+                                                        <button 
+                                                          class='btn btn-info btn-xs view_data' 
+                                                          id="<?=$user->ID?>" title='Modification'>
+                                                          <span class='glyphicon glyphicon-edit'></span>
+                                                          </button>
 
                                                         </td>
                                                     </tr>
                                                     <?php $cnt++; endforeach ?>
                                                 </tbody>
                                             </table>
+                                            </table>
+                                            <div id="messages"></div>
                                         </div>
                                     </div>
                                     <!-- /.panel-body -->
@@ -133,9 +140,13 @@ $users = $user->getUsers(); ?>
             </div>
 
 
-            <?php
+            <?php 
+            include_once 'Public/modals/edituser.php';
+            include_once 'Public/modals/adduser.php';
 
-        include_once 'Public/modals/adduser.php';?>
+            ?>
+
+
 
             <!-- jQuery -->
             <script src="plugins/js/jquery.min.js"></script>
@@ -154,14 +165,19 @@ $users = $user->getUsers(); ?>
             <script src="plugins/js/startmin.js"></script>
             
 
-            <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-            <script>
-                $(document).ready(function() {
-                    $('#dataTables-example').DataTable({ responsive: true });
-                });
-            </script>
+          
 
-<script type="text/javascript" src="public/ajax/user.js"></script>
+<script type="text/javascript" src="Public/ajax/user.js"></script>
 </body>
 
 </html>
+
+  <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+     $(document).ready(function() {
+    $('#dataTables-example').DataTable({ responsive: true });
+    
+    
+                 
+});
+</script>

@@ -28,7 +28,7 @@ function articles(){
 function users(){
 	session_destroy();	
 	require_once('Model/Admin/user.class.php');
-	$user = new Users();	
+    $user = new Users();	
 	include('Vues/Admin/users.php');
 }
 function quincailleries(){
