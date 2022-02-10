@@ -37,7 +37,7 @@ Class Categories
     {
         $db = getConnection();
         $matP = $db->prepare("SELECT * FROM tbl_categories WHERE ID=? LIMIT 1");
-        $matP->execute(array($idprof));
+        $matP->execute(array($idcat));
         $res = array();
         while($data = $matP->fetchObject())
         {
@@ -61,17 +61,17 @@ Class Categories
         return $ok;
     }
 
-     public function activProf($idprof){
+     public function activCat($idcat){
          $db = getConnection();
-         $sql =$db->prepare( "UPDATE prof SET ACCESS='1' where ID=?");
-         $ok = $sql->execute(array($idprof));
+         $sql =$db->prepare( "UPDATE tbl_categories SET STATUT='1' where ID=?");
+         $ok = $sql->execute(array($idcat));
         return $ok;
      }
      
-    public function deactivProf($idprof){
+    public function deactivCat($idcat){
         $db = getConnection();
-        $sql =$db->prepare( "UPDATE prof SET ACCESS='0' where ID=?");
-        $ok = $sql->execute(array($idprof));
+        $sql =$db->prepare( "UPDATE tbl_categories SET STATUT='0' where ID=?");
+        $ok = $sql->execute(array($idcat));
         return $ok;
     }
 }

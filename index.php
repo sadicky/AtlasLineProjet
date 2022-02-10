@@ -17,18 +17,14 @@ if(isset($_GET['page'])){
 	{
 		articles();
 	}
-	else if($_GET['page']=='quincailleries')
-	{
-		quincailleries();
-	}
 	
 	else if($_GET['page']=='stock_quincailleries')
 	{
 		stock_quincailleries();
 	}
-	else if($_GET['page']=='magasin')
+	else if($_GET['page']=='depot')
 	{
-		magasin();
+		depot();
 	}
 	else if($_GET['page']=='user')
 	{
@@ -37,6 +33,10 @@ if(isset($_GET['page'])){
 	else if($_GET['page']=='stock_magasin')
 	{
 		stock_magasin();
+	}
+	else if($_GET['page']=='approv')
+	{
+		approv();
 	}
 	else{
 		login();

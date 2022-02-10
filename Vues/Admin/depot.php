@@ -1,4 +1,4 @@
-<?php $title = 'Stock Magasin'; ?>
+<?php $title = 'Dépôt'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +68,7 @@
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        Stock Catégorie
+                                   Liste des articles disponibles au <?= $title ?>
                         <div class="pull-right"> 
                             <button class="btn btn-danger btn-xs"><i class="fa fa-file-pdf-o fa-fw"></i> Exporter PDF</button>
                             <button class="btn btn-primary btn-xs"><i class="fa fa-file-excel-o fa-fw"></i> Exporter Excel</button>
@@ -99,7 +99,7 @@
                                                         <td><?=$cat->PRIX?></td>
                                                         <td><?=$cat->PRIX*$cat->QTE?></td>
                                                         <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-primary update' title='Approvisionner'><i class='fa fa-cart-plus'></i> Approvisionner</a>
+                                                            <a  href='index.php?page=approv&id=<?=$cat->ID?>'type='submit' name='update' class='btn btn-xs btn-primary approv' title='Approvisionner'><i class='fa fa-cart-plus'></i> Approvisionner</a>
                                                          </td>
                                                         <td class="center">
                                                             <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
@@ -145,6 +145,7 @@
             <script src="plugins/js/startmin.js"></script>
 
             <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script type="text/javascript" src="public/ajax/depot.js"></script>
             <script>
                 $(document).ready(function() {
                     $('#dataTables-example').DataTable({
@@ -156,3 +157,7 @@
 </body>
 
 </html>
+
+<?php
+
+include_once 'Public/modals/addrec.php';?>

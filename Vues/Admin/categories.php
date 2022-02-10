@@ -75,7 +75,7 @@ $cats = $cat->getCategories();
                                     <div class="panel-heading">
                                         Les Catégories
                                         <div class="pull-right"> 
-                                            <button  data-toggle="modal" data-target="#ajoutcat" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i> Nouvelle</button>
+                                            <button data-toggle="modal" data-target="#ajoutcat" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i> Nouvelle</button>
                                             <button class="btn btn-danger btn-xs"><i class="fa fa-file-pdf-o fa-fw"></i> Exporter PDF</button>
                                             <button class="btn btn-primary btn-xs"><i class="fa fa-file-excel-o fa-fw"></i> Exporter Excel</button>
                                             <button class="btn btn-default btn-xs"><i class="fa fa-download fa-fw"></i> Importer</button>
@@ -90,29 +90,12 @@ $cats = $cat->getCategories();
                                                         <th>#</th>
                                                         <th>Catégories</th>
                                                         <th>Date de Création</th>
+                                                        <th>Etat</th>
                                                         <th>Activ/Desact</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <?php $cnt=1; foreach($cats as $cat):?>
-                                                    <tr class="odd gradeX">
-                                                        <td><?=$cnt?></td>
-                                                        <td><b><?=$cat->CATEGORIE?></b></td>
-                                                        <td><?=$cat->CREATEDAT?></td>
-                                                        <?php 
-                                                        if($cat->STATUT == 0){
-                                                        echo "<td><button type='button'  id='".$cat->ID."' name='activer' class='btn btn-xs btn-default activer' ><span class='glyphicon glyphicon-ok' ></span> Activer?</button></td>";
-                                                        } else {
-                                                            echo "<td>  <button type='button'  id='".$cat->ID."' name='desactiver' class='btn btn-xs btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
-                                                            </td>";}
-                                                            ?>
-                                                        <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
-                                                         </td>
-                                                    </tr>
-                                                    <?php $cnt++; endforeach ?>
-                                                </tbody>
+                                                <tbody id="categorie"> </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -133,7 +116,9 @@ $cats = $cat->getCategories();
 
             <?php
 
-include_once 'Public/modals/addcat.php';?>
+        include 'Public/modals/addcat.php';
+        include 'Public/modals/modcat.php';
+?>
 
             <!-- jQuery -->
             <script src="plugins/js/jquery.min.js"></script>
@@ -156,11 +141,18 @@ include_once 'Public/modals/addcat.php';?>
             <script>
                 $(document).ready(function() {
                     $('#dataTables-example').DataTable({
-                        responsive: true
+                        responsive: true,
+                        order:[],
+                        columnDefs:[
+                            {
+                            targets:[3, 4],
+                            orderable:false,
+                            },
+                        ],
+                        pageLength: 25
                     });
                 });
             </script>
 
 </body>
-
 </html>

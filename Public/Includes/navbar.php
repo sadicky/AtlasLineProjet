@@ -89,19 +89,12 @@
                 <!-- /.nav-second-level -->
               </li>
               <li>
-                <a href="#"><i class="fa fa-table fa-fw"></i> Approvisionemment de Dépot<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                  <li>
-                    <a href="index.php?page=quincailleries">Quincaillerie</a>
-                  </li>
-                  <li>
-                    <a href="index.php?page=magasin">Magasin</a>
-                  </li>
-                </ul>
+                <a href="index.php?page=depot"><i class="fa fa-table fa-fw"></i> Dépot </a>
+               
                 <!-- /.nav-second-level -->
               </li>
               <li>
-                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Stock Dispo<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Recquisitionner<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="index.php?page=stock_quincailleries">Quincaillerie</a>

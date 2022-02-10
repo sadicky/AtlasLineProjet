@@ -31,15 +31,16 @@ function users(){
 	$user = new Users();	
 	include('Vues/Admin/users.php');
 }
-function quincailleries(){
+
+function approv(){
 	session_destroy();	
 	require_once('Model/Admin/articles.class.php');
 	require_once('Model/Admin/categories.class.php');
 	$art = new Articles();
 	$cat = new Categories();
-	$getStock = $art->StockQId();	
-	include('Vues/Admin/quincailleries.php');
+	include('Vues/Admin/approv.php');
 }
+
 
 function stock_quincailleries(){
 	session_destroy();		
@@ -60,12 +61,12 @@ function stock_magasin(){
 	include('Vues/Admin/stock_magasin.php');
 }
 
-function magasin(){
+function depot(){
 	session_destroy();	
 	require_once('Model/Admin/articles.class.php');
 	require_once('Model/Admin/categories.class.php');
 	$art = new Articles();
 	$cat = new Categories();
-	$getStock = $art->StockMId();		
-	include('Vues/Admin/magasin.php');
+	$getStock = $art->getArticlesId();		
+	include('Vues/Admin/depot.php');
 }

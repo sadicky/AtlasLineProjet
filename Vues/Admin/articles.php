@@ -1,6 +1,6 @@
 <?php $title = 'Articles';
 $arts = $art->getArticlesId();
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +9,7 @@ $arts = $art->getArticlesId();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and touch icons -->
-     <link rel="shortcut icon" href="public/Images/logo.png" type="image/x-icon"> 
+    <link rel="shortcut icon" href="public/Images/logo.png" type="image/x-icon">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -67,19 +67,19 @@ $arts = $art->getArticlesId();
                         <div class="col-lg-12">
                             <h1 class="page-header"><?= $title ?></h1>
                         </div>
-     				 <div class='col-sm-12' id="message"></div>		
+                        <div class='col-sm-12' id="message"></div>
                         <!-- /.col-lg-12 -->
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Les Articles
-                        <div class="pull-right"> 
-                            <button data-toggle="modal" data-target="#ajoutart"  class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i> Nouvel</button>
-                            <button class="btn btn-danger btn-xs"><i class="fa fa-file-pdf-o fa-fw"></i> Exporter PDF</button>
-                            <button class="btn btn-primary btn-xs"><i class="fa fa-file-excel-o fa-fw"></i> Exporter Excel</button>
-                            <button class="btn btn-default btn-xs"><i class="fa fa-download fa-fw"></i> Importer</button>
-                        </div>
+                                        <div class="pull-right">
+                                            <button data-toggle="modal" data-target="#ajoutart" class="btn btn-primary btn-xs"><i class="fa fa-plus fa-fw"></i> Nouvel</button>
+                                            <button class="btn btn-danger btn-xs"><i class="fa fa-file-pdf-o fa-fw"></i> Exporter PDF</button>
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-file-excel-o fa-fw"></i> Exporter Excel</button>
+                                            <button class="btn btn-default btn-xs"><i class="fa fa-download fa-fw"></i> Importer</button>
+                                        </div>
                                     </div>
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
@@ -92,24 +92,42 @@ $arts = $art->getArticlesId();
                                                         <th>Catégories</th>
                                                         <th>Prix</th>
                                                         <th>Quantité</th>
+                                                        <th>Peremption</th>
+                                                        <th>Etat</th>
+                                                        <th>Activ/Desact</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $cnt=1; foreach($arts as $cat):?>
-                                                    <tr class="odd gradeX">
-                                                        <td><?=$cnt?></td>
-                                                        <td><b><?=$cat->ARTICLE?></b></td>
-                                                        <td><?=$cat->CATEGORIE?></td>
-                                                        <td><?=$cat->PRIX?></td>
-                                                        <td><?=$cat->QTE?></td>
-                                                        <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
-                                                            <button type='button' name='delete' id='".$value->ID."' class='btn btn-xs btn-danger delete' title='Supprimer Admin'><span class='glyphicon glyphicon-trash'></span></button>
+                                                    <?php $cnt = 1;
+                                                    foreach ($arts as $cat) : ?>
+                                                        <tr class="odd gradeX">
+                                                            <td><?= $cnt ?></td>
+                                                            <td><b><?= $cat->ARTICLE ?></b></td>
+                                                            <td><?= $cat->CATEGORIE ?></td>
+                                                            <td><?= $cat->PRIX ?></td>
+                                                            <td><?= $cat->QTE ?></td>
+                                                            <td><?= $cat->PEREMPTION ?></td>
+                                                            <?php
+                                                            if ($cat->STATUT == 0) {
+                                                                echo "<td> <span class='label label-danger'> Desactiver</span></td>";
+                                                            } else {
+                                                                echo "<td> <span class='label label-info'> Activer</span></td>";
+                                                            }
+                                                            if ($cat->STATUT == 0) {
+                                                                echo "<td><button type='button'  id='" . $cat->ID . "' name='activer' class='btn btn-xs btn-default activer' ><span class='glyphicon glyphicon-ok' ></span> Activer?</button></td>";
+                                                            } else {
+                                                                echo "<td>  <button type='button'  id='" . $cat->ID . "' name='desactiver' class='btn btn-xs btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
+                                                            </td>";
+                                                            }
+                                                            ?>
+                                                            <td class="center">
+                                                                <a type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
 
-                                                        </td>
-                                                    </tr>
-                                                    <?php $cnt++; endforeach ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt++;
+                                                    endforeach ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -131,7 +149,7 @@ $arts = $art->getArticlesId();
 
             <?php
 
-        include_once 'Public/modals/addart.php';?>
+            include_once 'Public/modals/addart.php'; ?>
 
             <!-- jQuery -->
             <script src="plugins/js/jquery.min.js"></script>
@@ -150,7 +168,7 @@ $arts = $art->getArticlesId();
             <script src="plugins/js/startmin.js"></script>
 
             <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script type="text/javascript" src="public/ajax/article.js"></script>
+            <script type="text/javascript" src="public/ajax/article.js"></script>
             <script>
                 $(document).ready(function() {
                     $('#dataTables-example').DataTable({
