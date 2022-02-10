@@ -67,7 +67,8 @@ $arts = $art->getArticlesId();
                         <div class="col-lg-12">
                             <h1 class="page-header"><?= $title ?></h1>
                         </div>
-     				 <div class='col-sm-12' id="message"></div>		
+     				 <div class='col-sm-12' id="message"></div>	
+                      <div id="messages"></div>	
                         <!-- /.col-lg-12 -->
                         <div class="row">
                             <div class="col-lg-12">
@@ -104,8 +105,11 @@ $arts = $art->getArticlesId();
                                                         <td><?=$cat->PRIX?></td>
                                                         <td><?=$cat->QTE?></td>
                                                         <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
-                                                            <button type='button' name='delete' id='".$value->ID."' class='btn btn-xs btn-danger delete' title='Supprimer Admin'><span class='glyphicon glyphicon-trash'></span></button>
+                                                        <button 
+                                                          class='btn btn-info btn-xs btn-block view_data' 
+                                                          id="<?=$cat->ARTID?>" title='Modification'>
+                                                          <span class='glyphicon glyphicon-edit'></span>
+                                                          </button>
 
                                                         </td>
                                                     </tr>
@@ -129,9 +133,10 @@ $arts = $art->getArticlesId();
             </div>
 
 
-            <?php
-
-        include_once 'Public/modals/addart.php';?>
+    <?php
+        include_once 'Public/modals/addart.php';
+        include_once 'Public/modals/editart.php';
+    ?>
 
             <!-- jQuery -->
             <script src="plugins/js/jquery.min.js"></script>
@@ -151,14 +156,44 @@ $arts = $art->getArticlesId();
 
             <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script type="text/javascript" src="public/ajax/article.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#dataTables-example').DataTable({
-                        responsive: true
-                    });
-                });
-            </script>
-
+            
 </body>
 
 </html>
+<script>
+$(document).ready(function() {
+  $('#dataTables-example').DataTable({responsive: true });
+
+$('.view_data').click(function(){  
+  var Id = $(this).attr("id");  
+$.ajax({  
+  url:"Public/script/viewartbeforedit.php",  
+  method:"post",  
+  data:{Id:Id},  
+  success:function(data){  
+ $('#art_detail').html(data);  
+ $('#artModal').modal("show");  
+//  getUser();  formeditart
+}  
+});  
+});
+//
+$(document).on('click','.submitb',function(){
+    $.ajax({
+            url:"Public/script/editart.php",
+            type:"post",
+            data:$("#formeditart").serialize(),
+            success:function(data){
+            $("#messages").html(data).slideDown();
+            $("#artModal").modal('hide');
+            // getUser();
+            }
+   
+    });
+    return false;
+});
+
+
+
+});
+</script>

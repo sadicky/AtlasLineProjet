@@ -67,7 +67,8 @@ $cats = $cat->getCategories();
                         <div class="col-lg-12">
                             <h1 class="page-header"><?= $title ?></h1>
                         </div>                        
-                     <div class='col-sm-12' id="message"></div>     
+                     <div class='col-sm-12' id="message"></div> 
+                     <div id="messages"></div>    
                         <!-- /.col-lg-12 -->
                         <div class="row">
                             <div class="col-lg-12">
@@ -87,28 +88,32 @@ $cats = $cat->getCategories();
                                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>Catégories</th>
-                                                        <th>Date de Création</th>
-                                                        <th>Activ/Desact</th>
-                                                        <th>Actions</th>
+                                                        <th><center>#</center></th>
+                                                        <th><center>Catégories</center></th>
+                                                        <th><center>Date de Création</center></th>
+                                                        <th><center>Activer/Desactiver</center></th>
+                                                        <th><center>Actions</center></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php $cnt=1; foreach($cats as $cat):?>
                                                     <tr class="odd gradeX">
-                                                        <td><?=$cnt?></td>
-                                                        <td><b><?=$cat->CATEGORIE?></b></td>
-                                                        <td><?=$cat->CREATEDAT?></td>
+                                                        <td><center><?=$cnt?></center></td>
+                                                        <td><center><b><?=$cat->CATEGORIE?></b></center></td>
+                                                        <td><center><?=$cat->CREATEDAT?></center></td>
                                                         <?php 
                                                         if($cat->STATUT == 0){
-                                                        echo "<td><button type='button'  id='".$cat->ID."' name='activer' class='btn btn-xs btn-default activer' ><span class='glyphicon glyphicon-ok' ></span> Activer?</button></td>";
+                                                        echo "<td><button type='button'  id='".$cat->ID."' name='activer' class='btn btn-xs btn-block btn-default activer' ><span class='glyphicon glyphicon-ok' ></span> Activer?</button></td>";
                                                         } else {
-                                                            echo "<td>  <button type='button'  id='".$cat->ID."' name='desactiver' class='btn btn-xs btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
+                                                            echo "<td>  <button type='button'  id='".$cat->ID."' name='desactiver' class='btn btn-xs btn-block btn-default desactiver'><span class='glyphicon glyphicon-remove' ></span> Desactiver?</button>
                                                             </td>";}
                                                             ?>
                                                         <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>
+                                                        <button 
+                                                          class='btn btn-info btn-xs btn-block view_data' 
+                                                          id="<?=$cat->ID?>" title='Modification'>
+                                                          <span class='glyphicon glyphicon-edit'></span>
+                                                          </button>
                                                          </td>
                                                     </tr>
                                                     <?php $cnt++; endforeach ?>
@@ -131,9 +136,10 @@ $cats = $cat->getCategories();
             </div>
 
 
-            <?php
-
-include_once 'Public/modals/addcat.php';?>
+<?php
+include_once 'Public/modals/addcat.php';
+include_once 'Public/modals/editcat.php';
+?>
 
             <!-- jQuery -->
             <script src="plugins/js/jquery.min.js"></script>
@@ -152,15 +158,44 @@ include_once 'Public/modals/addcat.php';?>
             <script src="plugins/js/startmin.js"></script>
 
             <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script type="text/javascript" src="public/ajax/categorie.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#dataTables-example').DataTable({
-                        responsive: true
-                    });
-                });
-            </script>
+
+            <script type="text/javascript" src="public/ajax/categorie.js"></script>
 
 </body>
 
 </html>
+<script>
+$(document).ready(function() {
+ $('#dataTables-example').DataTable({responsive: true});
+
+ $('.view_data').click(function(){  
+  var Id = $(this).attr("id");  
+$.ajax({  
+  url:"Public/script/viewcatbeforedit.php",  
+  method:"post",  
+  data:{Id:Id},  
+  success:function(data){  
+ $('#cat_detail').html(data);  
+ $('#catModal').modal("show");  
+//  getUser();
+}  
+});  
+});
+//
+$(document).on('click','.submitb',function(){
+    $.ajax({
+            url:"Public/script/editcat.php",
+            type:"post",
+            data:$("#formeditcat").serialize(),
+            success:function(data){
+            $("#messages").html(data).slideDown();
+            $("#catModal").modal('hide');
+            // getUser();
+            }
+   
+});
+    return false;
+}); 
+
+});
+</script>

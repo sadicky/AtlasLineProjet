@@ -15,7 +15,7 @@ Class Categories
         $this->statut=$statut;
         $this->dateins=$dateins;
         $db = getConnection();
-        $add = $db->prepare("INSERT INTO tbl_categories (CATEGORIE,CREATEDAT,STATUT) VALUES (?,?,?)");
+        $add = $db->prepare("INSERT INTO tbl_categories (CATEGORIE,,STATUT) VALUES (?,?,?)");
         $addline = $add->execute(array($cat,date("Y-m-d"),$statut)) or die(print_r($add->errorInfo()));
         return $addline;
     }

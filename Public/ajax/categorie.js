@@ -1,5 +1,5 @@
 $(document).ready(function () {
-      $("#formulaire").submit(function (event) {
+$("#formulaire").submit(function (event) {
         event.preventDefault();
           var cat = $("#cat").val();
           var dateins = $("#dateins").val();
@@ -19,7 +19,7 @@ $(document).ready(function () {
                   
               }
           });
-      });
+});
 
     
   $(document).on("click", ".activer", function (event) {
@@ -61,6 +61,8 @@ $(document).ready(function () {
         return false;
       }
     });
+
+
    
     
     

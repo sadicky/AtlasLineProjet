@@ -49,7 +49,8 @@ Class Articles
     public function getArticlesId()
     {
         $db = getConnection();
-        $statement = $db->prepare("SELECT * FROM tbl_articles,tbl_categories WHERE  tbl_articles.IDCAT=tbl_categories.ID");
+        $statement = $db->prepare("SELECT tbl_articles.ARTICLE as ARTICLE,tbl_articles.ID as ARTID,tbl_articles.IDCAT as IDCAT,tbl_articles.QTE as QTE,tbl_articles.PRIX as PRIX,
+        tbl_articles.CONDITIONEMMENT as COND,tbl_categories.CATEGORIE as CATEGORIE FROM tbl_categories,tbl_articles WHERE  tbl_articles.IDCAT=tbl_categories.ID");
         $statement->execute();
         $tbP = array();
         while($data =  $statement->fetchObject()){
