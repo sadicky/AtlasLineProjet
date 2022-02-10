@@ -49,28 +49,27 @@ Class Categories
     {
         $db = getConnection();
         $delete = $db->prepare("DELETE FROM tbl_categories WHERE ID =?");
-        $ok = $delete->execute(array($idprof));
+        $ok = $delete->execute(array($idcat));
         return $ok;
     }
 	
-    public function updateProf($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idprof)
+    public function updateProf($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idcat)
     {
         $db = getConnection();
         $update = $db->prepare("UPDATE Admin SET LOGIN=?,PWD=?,PRENOM=?,NOM=?,FX=?,SEXE=?,TEL=?,PHOTO=?,ACCESS=?  WHERE ID =?");
-        $ok = $update->execute(array($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idadmin)) or die(print_r($update->errorInfo()));
+        $ok = $update->execute(array($login,$pwd,$prenom,$nom,$fonction,$sexe,$tel,$photo,$access,$idcat)) or die(print_r($update->errorInfo()));
         return $ok;
     }
 
-     public function activCat($idcat){
-         $db = getConnection();
-         $sql =$db->prepare( "UPDATE tbl_categories SET STATUT='1' where ID=?");
-         $ok = $sql->execute(array($idcat));
-        return $ok;
-     }
-     
     public function deactivCat($idcat){
         $db = getConnection();
         $sql =$db->prepare( "UPDATE tbl_categories SET STATUT='0' where ID=?");
+        $ok = $sql->execute(array($idcat));
+        return $ok;
+    }
+    public function activCat($idcat){
+        $db = getConnection();
+        $sql =$db->prepare( "UPDATE tbl_categories SET STATUT='1' where ID=?");
         $ok = $sql->execute(array($idcat));
         return $ok;
     }

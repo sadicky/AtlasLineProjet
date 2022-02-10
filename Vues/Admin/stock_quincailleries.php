@@ -104,7 +104,7 @@
                                                         <td><?=$cat->PRIX?></td>
                                                         <td><?=$cat->PRIX*$cat->QTE?></td>
                                                         <td class="center">
-                                                            <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-danger update' title='Recquisitionner'><i class='fa fa-cart-plus'></i> Recquisitionner</a>
+                                                            <a href='index.php?page=recquisq&id=<?=$cat->ID?>' type='submit' name='update' class='btn btn-xs btn-danger update' title='Recquisitionner'><i class='fa fa-cart-plus'></i> Recquisitionner</a>
                                                          </td>
                                                         <td class="center">
                                                             <a href='index.php?page=modadmin&id=$value->ID' type='submit' name='update' class='btn btn-xs btn-info update' title='Modifier Admin'><span class='glyphicon glyphicon-edit'></span></a>

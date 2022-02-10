@@ -1,23 +1,29 @@
-<div id="ajoutuser" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-md">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Ajouter un utilisateur</h4>
-      </div>
-      <div class="modal-body">	
-      <form method="post" id="formulaire"  enctype="multipart/form-data">
+<?php
+include"../../Model/connexion.php";
+$db = getConnection();
+$Id = $_POST['Id'];
+$sql="SELECT * FROM tbl_users WHERE ID='$Id'";
+$req=$db->query($sql);
+$d=$req->fetch();
+
+// echo $Id;
+
+?>
+
+<div>
+
+<form method="post" id="formedit"  enctype="multipart/form-data">
+    <input type="hidden" id="Id" name="Id" value="<?=$d['ID'] ?>">
       	<div class="row">
       		<div class="col-sm-6">
       			<div class="form-group">      				
       				<b><label>Noms : </label> <span class="text-danger">*</span></b>
-      				<input type="text" class="form-control" placeholder="noms" name="name" id="name" required>
+      				<input type="text" class="form-control" value="<?= $d['NAME']?>" name="name" id="name" required>
       			</div>
       			<div class="form-group">      				
       				<b><label>Type : </label> <span class="text-danger"></span></b>
                       <select name="type" class="form-control" id="type" required>
-                        <option selected disabled>Selectionner le type</option>
+                        <option value="<?=$d['TYPE']?>"><?= $d['TYPE']?></option>
                         <option value="admin">Admin</option>
                         <option value="caissier">Caissier</option>
                         <option value="gestionnaire de dépôt">Gestionnaire</option>
@@ -28,16 +34,16 @@
       		<div class="col-sm-6">
       			<div class="form-group">      				
       				<b><label>Email : </label> <span class="text-danger">*</span></b>
-      				<input type="text" class="form-control" placeholder="Email" name="email" id="email" required>
-      			</div> 
+      				<input type="text" class="form-control" value="<?= $d['EMAIL']?>" name="email" id="email" required>
+      			</div>     
       			<b><label>#</label></b>
-                  <button class="btn btn-primary btn-block btn-sm" type="submit"><i class="fa fa-plus fa-fw"></i> Ajouter</button>
-					 
+                <button class="btn btn-success btn-block submitb" name="submit" type="submit" id="submit">
+           		    <span class="glyphicon glyphicon-download"> Enregistrer</span>
+           	    </button>
+					 <!--  -->
       		</div>	
 			  	
       	</div>
       </form>
-      </div>
-    </div>
-  </div>
-</div> 
+
+</div>

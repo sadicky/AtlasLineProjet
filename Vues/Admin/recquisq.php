@@ -1,10 +1,15 @@
-<?php $title = 'Approvisioner';
+<?php $title = 'Recquisition Quincaillerie';
 include 'public/includes/header.php';
+require_once('Model/Admin/connexion.php');
 $id =$_GET['id'];
+$db = getConnection();
+$sql="SELECT * FROM tbl_articles WHERE ID='$id'";
+$req=$db->query($sql);
+$req->execute();
+$g=$req->fetch(PDO::FETCH_OBJ);
 $art = new Articles();
-$data = $art->getArticleId($id);
-foreach ($data as $v):
-?>
+$data = $art->stockQId($id);
+foreach ($data as $v):?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
@@ -38,7 +43,7 @@ foreach ($data as $v):
               <div class="col-lg-12">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    Approvisioner les produits
+                   <?=$title?>
                   </div>
                   <!-- /.panel-heading -->
                   <div class="panel-body">
@@ -50,35 +55,29 @@ foreach ($data as $v):
                         <div class="col-md-3">
                           <div class="form-group">
                             <label>Produit</label>
-                            <input type="hidden" name="id" id="id" value="<?= $v->ID ?>">
-                            <input readonly type="text" name="article" id="article" class="form-control" value="<?=  $v->ARTICLE ?>" placeholder="DCU du medicament Ici">
+                            <input type="hidden" name="id" id="id" value="<?=$v->ID?>">
+                            <input readonly type="text" name="article" id="article" class="form-control" value="<?=$v->ARTICLE?>" placeholder="DCU du medicament Ici">
                          </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label>Date de Peremption</label>
-                            <?php
-                            if ($v->PEREMPTION !='0000-00-00') { ?>
-                              <input type="date" name="expired" id="expired" value="<?= $v->PEREMPTION ?>" class="form-control">
-                            <?php } else { ?>
-                              <input type="date" name="expired" id="expired" required class="form-control">
-                            <?php   }
-                            ?>
+                            <label>Stock Disponible</label>
+                              <input readonly type="number" name="qte" id="qte" value="<?=$g->QTE?>" class="form-control">
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <label>Quantite : <span style="color:red"><?= $v->QTE  ?> </span></label>
-                            <input value="<?=$v->QTE ?>" type="hidden" name="sqte" id="sqte">
+                            <label>Quantite : </label>
+                            <input value="<?=$v->QTE?>" type="hidden" name="sqte" id="sqte">
                             <input type="number" name="qte" id="qte" class="form-control" placeholder="Quantity" required>
                           </div>
                         </div>
                         <div class="col-md-3">
-                          <div class="form-group">
-                            <label>Pays d'Approvisionnement : </label>
-                            <input type="text" name="fab" value="<?=$v->PAYSFABR ?>" id="fab" class="form-control" placeholder="Pays d'Approvisionnement" required>
+                          <div class="form-group"> 
+                            <label>&nbsp; </label><br>
+                            <button type="submit" class="btn btn-primary btn-block pull-right">Recquisitionner</button>
                          </div>
-                        <button type="submit" class="btn btn-primary pull-right">Approvisionner</button>
+                        </div>
                         </div>
 
                         <!-- /.col -->
@@ -112,6 +111,7 @@ foreach ($data as $v):
 
             <!-- /.content-wrapper -->
             <?php  endforeach ?>
+            
           
           </div>
           <!-- ./wrapper -->

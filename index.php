@@ -38,6 +38,14 @@ if(isset($_GET['page'])){
 	{
 		approv();
 	}
+	else if($_GET['page']=='recquism')
+	{
+		recquism();
+	}
+	else if($_GET['page']=='recquisq')
+	{
+		recquisq();
+	}
 	else{
 		login();
 	}	

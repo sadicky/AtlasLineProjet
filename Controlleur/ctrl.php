@@ -28,7 +28,7 @@ function articles(){
 function users(){
 	session_destroy();	
 	require_once('Model/Admin/user.class.php');
-	$user = new Users();	
+    $user = new Users();	
 	include('Vues/Admin/users.php');
 }
 
@@ -42,13 +42,32 @@ function approv(){
 }
 
 
-function stock_quincailleries(){
-	session_destroy();		
+function recquisq(){
+	session_destroy();	
 	require_once('Model/Admin/articles.class.php');
 	require_once('Model/Admin/categories.class.php');
 	$art = new Articles();
 	$cat = new Categories();
-	$getStock = $art->StockQId();
+	include('Vues/Admin/recquisq.php');
+}
+
+function recquism(){
+	session_destroy();	
+	require_once('Model/Admin/articles.class.php');
+	require_once('Model/Admin/categories.class.php');
+	$art = new Articles();
+	$cat = new Categories();
+	include('Vues/Admin/recquism.php');
+}
+
+
+function stock_quincailleries(){
+	session_destroy();		
+	require_once('Model/Admin/articles.class.php');
+	// require_once('Model/Admin/categories.class.php');
+	$art = new Articles();
+	// $cat = new Categories();
+	$getStock = $art->getQ();
 	include('Vues/Admin/stock_quincailleries.php');
 }
 function stock_magasin(){

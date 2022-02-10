@@ -50,7 +50,7 @@ Class Articles
     }
 
     
-    //ajouter un article
+    
     public function Approvisionner($qte,$expired,$dateins,$fab,$idu,$id)
     {   
         $this->fab=$fab;          
@@ -59,10 +59,63 @@ Class Articles
         $this->qte=$qte;
         $this->id=$id;
         $db = getConnection();
-        $update = $db->prepare("UPDATE tbl_articles SET QTE=?,PEREMPTION=?,DATECREAT=?,PAYSFABR=?,IDUSER=?, WHERE ID =?");
+        $update = $db->prepare("UPDATE tbl_articles SET QTE=?,PEREMPTION=?,DATECREAT=?,PAYSFABR=?,IDUSER=? WHERE ID =?");
         $ok = $update->execute(array($qte,$expired,date('Y-m-d H:i:s'),$fab,$idu,$id)) or die(print_r($update->errorInfo()));
         return $ok;
     }
+    
+    
+    public function RecquisitionnerQ($qte,$expired,$dateins,$fab,$idu,$id)
+    {   
+        $this->fab=$fab;          
+        $this->expired=$expired;
+        $this->idu=$idu;
+        $this->qte=$qte;
+        $this->id=$id;
+        $db = getConnection();
+        $update = $db->prepare("UPDATE tbl_stockq SET QTE=?,PEREMPTION=?,DATECREAT=?,PAYSFABR=?,IDUSER=? WHERE ID =?");
+        $ok = $update->execute(array($qte,$expired,date('Y-m-d H:i:s'),$fab,$idu,$id)) or die(print_r($update->errorInfo()));
+        return $ok;
+    }
+
+    public function RecquisitionnerM($qte,$expired,$dateins,$fab,$idu,$id)
+    {   
+        $this->fab=$fab;          
+        $this->expired=$expired;
+        $this->idu=$idu;
+        $this->qte=$qte;
+        $this->id=$id;
+        $db = getConnection();
+        $update = $db->prepare("UPDATE tbl_stockm SET QTE=?,PEREMPTION=?,DATECREAT=?,PAYSFABR=?,IDUSER=? WHERE ID =?");
+        $ok = $update->execute(array($qte,$expired,date('Y-m-d H:i:s'),$fab,$idu,$id)) or die(print_r($update->errorInfo()));
+        return $ok;
+    }
+
+    public function Approvisionner2($expired,$fab,$idu,$id)
+    {   
+        $this->fab=$fab;          
+        $this->expired=$expired;
+        $this->idu=$idu;
+        $this->id=$id;
+        $db = getConnection();
+        $update1 = $db->prepare("UPDATE tbl_stockm SET PEREMPTION=?,PAYSFABR=?,IDUSER=? WHERE ID =?");
+        $ok1 = $update1->execute(array($expired,$fab,$idu,$id)) or die(print_r($update1->errorInfo()));
+        return $ok1;
+         
+    }
+    public function Approvisionner3($expired,$fab,$idu,$id)
+    {   
+        $this->fab=$fab;          
+        $this->expired=$expired;
+        $this->idu=$idu;
+        $this->id=$id;
+        $db = getConnection();       
+        $update2 = $db->prepare("UPDATE tbl_stockq SET PEREMPTION=?,PAYSFABR=?,IDUSER=? WHERE ID =?");
+        $ok = $update2->execute(array($expired,$fab,$idu,$id)) or die(print_r($update2->errorInfo()));
+        return $ok;
+         
+    }
+
 
     //afficher les catégories
     public function getArticlesId()
@@ -77,10 +130,21 @@ Class Articles
          return $tbP;
     }
       //afficher les catégories
-      public function StockQId()
+      public function StockQId($id)
       {
           $db = getConnection();
-          $statement = $db->prepare("SELECT * FROM tbl_stockq,tbl_categories WHERE  tbl_stockq.IDCAT=tbl_categories.ID");
+          $statement = $db->prepare("SELECT * FROM tbl_stockq  WHERE ID=? LIMIT 1");
+          $statement->execute(array($id));
+          $tbP = array();
+          while($data =  $statement->fetchObject()){
+              $tbP[] = $data;
+          }
+           return $tbP;
+      }
+      public function getQ()
+      {
+          $db = getConnection();
+          $statement = $db->prepare("SELECT  tbl_stockq.ID,tbl_stockq.ARTICLE,tbl_stockq.QTE,tbl_stockq.PRIX,tbl_stockq.PEREMPTION,tbl_stockq.STATUT,tbl_categories.CATEGORIE FROM tbl_stockq,tbl_categories WHERE  tbl_stockq.IDCAT=tbl_categories.ID ");
           $statement->execute();
           $tbP = array();
           while($data =  $statement->fetchObject()){
@@ -88,7 +152,6 @@ Class Articles
           }
            return $tbP;
       }
-      
     
 	public function OutOfStock($table){
         $db = getConnection();
@@ -115,7 +178,8 @@ Class Articles
     public function getArticleId($idart)
     {
         $db = getConnection();
-        $matP = $db->prepare("SELECT * FROM tbl_articles WHERE tbl_articles.ID=? LIMIT 1");
+        $matP = $db->prepare("SELECT * FROM tbl_articles,tbl_categories WHERE tbl_articles.IDCAT=tbl_categories.ID
+         AND tbl_articles.ID=? LIMIT 1");
         $matP->execute(array($idart));
         $res = array();
         while($data = $matP->fetchObject())

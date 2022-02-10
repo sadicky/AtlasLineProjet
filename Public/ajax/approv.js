@@ -4,6 +4,7 @@ $(document).ready(function () {
         event.preventDefault();
         var article = $("#article").val();
         var qte =  $("#qte").val();
+        var sqte =  $("#sqte").val();
         var fab = $("#fab").val();
         var id = $("#id").val();
         var expired = $("#expired").val();
@@ -11,12 +12,12 @@ $(document).ready(function () {
             url: "Public/script/approv.php",
             method: "POST",
             data: {
-                idu: idu,
-                id:idu,
+                id:id,
                 qte: qte,
                 article: article,
                 fab: fab,
-                expired: expired
+                expired: expired,
+                sqte: sqte
             },
             success: function (donnees) {
                 $('#message').html(donnees).slideDown();
