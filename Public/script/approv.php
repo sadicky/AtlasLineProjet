@@ -10,7 +10,7 @@ $id = isset($_POST['id']) ? $_POST['id'] : 0;
 
 // Calculs	
 $balance = intval($sqte) + intval($aqte);
-
+// $balance = 10;
 $date = date('Y-m-d');
 $idu = 13;
 $add = null;
